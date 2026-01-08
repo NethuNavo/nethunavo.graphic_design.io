@@ -2,100 +2,1281 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>My Graphic Design Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Portfolio — Design & Innovation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Work+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg: #0a0a0f;
+            --color-surface: #15151f;
+            --color-surface-light: #1f1f2e;
+            --color-primary: #f5f0e8;
+            --color-accent: #d4a574;
+            --color-accent-light: #e8c9a6;
+            --color-text: #e8e8f0;
+            --color-text-muted: #a8a8b8;
+            --color-border: rgba(212, 165, 116, 0.15);
+            
+            --font-display: 'Playfair Display', serif;
+            --font-body: 'Work Sans', sans-serif;
+            
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 2rem;
+            --spacing-lg: 4rem;
+            --spacing-xl: 6rem;
+            
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Custom Cursor */
+        .cursor-follower {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--color-accent);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.2s ease, opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        @media (hover: hover) {
+            .cursor-follower {
+                opacity: 0.5;
+            }
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: var(--spacing-md) var(--spacing-lg);
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--color-border);
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        .logo-icon {
+            color: var(--color-accent);
+            font-size: 1.8rem;
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--spacing-lg);
+            list-style: none;
+        }
+
+        .nav-links a {
+            position: relative;
+            color: var(--color-text-muted);
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            transition: var(--transition);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-accent);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: var(--spacing-xl) var(--spacing-lg);
+        }
+
+        .hero-background {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+        }
+
+        .gradient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--color-accent), transparent);
+            top: -200px;
+            left: -200px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, #8b7355, transparent);
+            bottom: -150px;
+            right: -150px;
+            animation-delay: 5s;
+        }
+
+        .orb-3 {
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, var(--color-accent-light), transparent);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: 10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.1); }
+            66% { transform: translate(-30px, 30px) scale(0.9); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 900px;
+        }
+
+        .hero-label {
+            display: inline-block;
+            padding: var(--spacing-xs) var(--spacing-md);
+            background: rgba(212, 165, 116, 0.1);
+            border: 1px solid var(--color-border);
+            border-radius: 50px;
+            color: var(--color-accent);
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: var(--spacing-md);
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: var(--spacing-md);
+            color: var(--color-primary);
+        }
+
+        .hero-title .line {
+            display: block;
+            animation: fadeInUp 0.8s ease-out both;
+        }
+
+        .hero-title .line:nth-child(1) { animation-delay: 0.3s; }
+        .hero-title .line:nth-child(2) { animation-delay: 0.4s; }
+        .hero-title .line:nth-child(3) { animation-delay: 0.5s; }
+
+        .hero-title .accent {
+            background: linear-gradient(135deg, var(--color-accent), var(--color-accent-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-subtitle {
+            font-size: 1.15rem;
+            color: var(--color-text-muted);
+            max-width: 600px;
+            margin: 0 auto var(--spacing-lg);
+            line-height: 1.8;
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: var(--spacing-md);
+            justify-content: center;
+            animation: fadeInUp 0.8s ease-out 0.7s both;
+        }
+
+        .btn-primary,
+        .btn-secondary {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            transition: var(--transition);
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--color-accent), var(--color-accent-light));
+            color: var(--color-bg);
+            box-shadow: 0 10px 30px rgba(212, 165, 116, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(212, 165, 116, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--color-accent);
+            border: 2px solid var(--color-accent);
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-accent);
+            color: var(--color-bg);
+            transform: translateY(-3px);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: var(--spacing-lg);
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--spacing-sm);
+            color: var(--color-text-muted);
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            animation: fadeInUp 0.8s ease-out 0.8s both;
+        }
+
+        .scroll-line {
+            width: 2px;
+            height: 50px;
+            background: linear-gradient(to bottom, var(--color-accent), transparent);
+            animation: scrollAnimation 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollAnimation {
+            0%, 100% { opacity: 0; transform: translateY(0); }
+            50% { opacity: 1; transform: translateY(20px); }
+        }
+
+        /* Main Content */
+        .main-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .section {
+            padding: var(--spacing-xl) var(--spacing-lg);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-alternate {
+            background: var(--color-surface);
+        }
+
+        .section-header {
+            display: flex;
+            gap: var(--spacing-lg);
+            align-items: flex-start;
+            margin-bottom: var(--spacing-xl);
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .section-number {
+            font-family: var(--font-display);
+            font-size: 5rem;
+            font-weight: 900;
+            color: var(--color-accent);
+            opacity: 0.2;
+            line-height: 1;
+        }
+
+        .section-title-wrapper {
+            flex: 1;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--color-text-muted);
+            font-weight: 300;
+        }
+
+        /* Gallery Layouts */
+        .gallery {
+            display: grid;
+            gap: var(--spacing-md);
+        }
+
+        .grid-layout {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .masonry-layout {
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        }
+
+        .gallery-item {
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .gallery-item:nth-child(1) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(2) { animation-delay: 0.2s; }
+        .gallery-item:nth-child(3) { animation-delay: 0.3s; }
+        .gallery-item:nth-child(4) { animation-delay: 0.4s; }
+        .gallery-item:nth-child(5) { animation-delay: 0.5s; }
+        .gallery-item:nth-child(6) { animation-delay: 0.6s; }
+
+        .gallery-item.large {
+            grid-column: span 1;
+        }
+
+        .image-link {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .image-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--radius-md);
+            background: var(--color-surface-light);
+            aspect-ratio: 4/3;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .image-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(212, 165, 116, 0.9), rgba(139, 115, 85, 0.9));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .view-text {
+            color: var(--color-bg);
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .gallery-item:hover .image-wrapper img {
+            transform: scale(1.1);
+        }
+
+        .gallery-item:hover .image-overlay {
+            opacity: 1;
+        }
+
+        .item-info h3 {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .item-tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: rgba(212, 165, 116, 0.1);
+            border: 1px solid var(--color-border);
+            border-radius: 20px;
+            color: var(--color-accent);
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* CV Section */
+        .cv-container {
+            display: flex;
+            justify-content: center;
+            padding: var(--spacing-lg) 0;
+        }
+
+        .cv-card {
+            background: linear-gradient(135deg, var(--color-surface-light), var(--color-surface));
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            max-width: 600px;
+            text-align: center;
+            transition: var(--transition);
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.3s forwards;
+        }
+
+        .cv-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(212, 165, 116, 0.2);
+        }
+
+        .cv-icon {
+            font-size: 4rem;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .cv-card h3 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .cv-card p {
+            color: var(--color-text-muted);
+            margin-bottom: var(--spacing-lg);
+            font-size: 1.05rem;
+        }
+
+        .cv-links {
+            display: flex;
+            gap: var(--spacing-md);
+            justify-content: center;
+        }
+
+        .cv-btn {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            padding: 1rem 2rem;
+            background: var(--color-accent);
+            color: var(--color-bg);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cv-btn:hover {
+            background: var(--color-accent-light);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212, 165, 116, 0.3);
+        }
+
+        /* Presentations Section */
+        .presentations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-md);
+        }
+
+        .presentation-card {
+            background: var(--color-surface-light);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-lg);
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .presentation-card:nth-child(1) { animation-delay: 0.1s; }
+        .presentation-card:nth-child(2) { animation-delay: 0.2s; }
+        .presentation-card:nth-child(3) { animation-delay: 0.3s; }
+
+        .presentation-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--color-accent);
+            box-shadow: 0 15px 40px rgba(212, 165, 116, 0.2);
+        }
+
+        .presentation-icon {
+            color: var(--color-accent);
+        }
+
+        .presentation-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--color-primary);
+        }
+
+        .presentation-card p {
+            color: var(--color-text-muted);
+            flex: 1;
+        }
+
+        .presentation-format {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(212, 165, 116, 0.1);
+            border: 1px solid var(--color-border);
+            border-radius: 20px;
+            color: var(--color-accent);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            align-self: flex-start;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--color-surface);
+            border-top: 1px solid var(--color-border);
+            padding: var(--spacing-xl) var(--spacing-lg) var(--spacing-md);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: var(--spacing-xl);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .footer-brand p {
+            color: var(--color-text-muted);
+            margin-top: var(--spacing-sm);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: var(--spacing-xl);
+        }
+
+        .footer-column h4 {
+            font-family: var(--font-display);
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-md);
+            font-size: 1.1rem;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .footer-column a {
+            color: var(--color-text-muted);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-column a:hover {
+            color: var(--color-accent);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: var(--spacing-md);
+            border-top: 1px solid var(--color-border);
+            text-align: center;
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Ripple Effect */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transform: scale(0);
+            animation: ripple-animation 0.6s ease-out;
+            pointer-events: none;
+        }
+
+        @keyframes ripple-animation {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            :root {
+                --spacing-lg: 2rem;
+                --spacing-xl: 3rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                gap: var(--spacing-sm);
+            }
+            
+            .section-number {
+                font-size: 3rem;
+            }
+            
+            .hero-cta {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .cv-links {
+                flex-direction: column;
+            }
+            
+            .cv-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery.grid-layout,
+            .gallery.masonry-layout,
+            .presentations-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-    <nav>
-        <div class="logo">🎨 My Portfolio</div>
-        <ul>
-            <li><a href="#certificates">Certificates</a></li>
-            <li><a href="#uiux">UI/UX</a></li>
-            <li><a href="#cv">CV</a></li>
-            <li><a href="#posts">Posts</a></li>
-            <li><a href="#presentations">Presentations</a></li>
-        </ul>
+    <div class="cursor-follower"></div>
+    
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-icon">✦</span>
+                <span class="logo-text">Portfolio</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#certificates" data-text="Certificates">Certificates</a></li>
+                <li><a href="#uiux" data-text="UI/UX">UI/UX</a></li>
+                <li><a href="#cv" data-text="CV">CV</a></li>
+                <li><a href="#posts" data-text="Posts">Posts</a></li>
+                <li><a href="#presentations" data-text="Presentations">Presentations</a></li>
+            </ul>
+        </div>
     </nav>
 
     <header class="hero">
-        <h1>Welcome to My Graphic Design Portfolio</h1>
-        <p>Explore my creative work across multiple design categories.</p>
+        <div class="hero-background">
+            <div class="gradient-orb orb-1"></div>
+            <div class="gradient-orb orb-2"></div>
+            <div class="gradient-orb orb-3"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-label">Creative Design Portfolio</div>
+            <h1 class="hero-title">
+                <span class="line">Crafting Visual</span>
+                <span class="line">Experiences That</span>
+                <span class="line accent">Inspire</span>
+            </h1>
+            <p class="hero-subtitle">Exploring the intersection of design, innovation, and human connection through thoughtful visual storytelling</p>
+            <div class="hero-cta">
+                <a href="#certificates" class="btn-primary">Explore Work</a>
+                <a href="#cv" class="btn-secondary">View CV</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll to discover</span>
+            <div class="scroll-line"></div>
+        </div>
     </header>
 
-    <main>
-       <section id="certificates">
-    <h2>📜 Certificate Designs</h2>
-    <div class="gallery">
-        <a href="certificate-designs/4th place.png" target="_blank">
-            <img src="certificate-designs/4th place.png" alt="4th Place Certificate">
-        </a>
-        <a href="certificate-designs/Participation.png" target="_blank">
-            <img src="certificate-designs/Participation.png" alt="Participation Certificate">
-        </a>
-        <a href="certificate-designs/F O R V O L U N T E E R I N G (3).png" target="_blank">
-            <img src="certificate-designs/F O R V O L U N T E E R I N G (3).png" alt="Volunteering Certificate 3">
-        </a>
-        <a href="certificate-designs/F O R V O L U N T E E R I N G (4).png" target="_blank">
-            <img src="certificate-designs/F O R V O L U N T E E R I N G (4).png" alt="Volunteering Certificate 4">
-        </a>
-    </div>
-
-        </section>
-<section id="presentations">
-    <h2>📽️ Presentations</h2>
-    <div class="gallery">
-        <a href="presentations/Advantages of Electric Vehicles.pptx" target="_blank">
-            Advantages of Electric Vehicles
-        </a>
-        <a href="presentations/my presentation karate.ppsx" target="_blank">
-            Karate Presentation
-        </a>
-        <a href="presentations/The Future of Vehicles New.pptx" target="_blank">
-            The Future of Vehicles (New)
-        </a>
-    </div>
-</section>
-
-        <section id="uiux">
-            <h2>💻 UI/UX Designs</h2>
-            <div class="gallery">
-                <img src="ui-ux-designs/Group 62.png" alt="UI Design 1">
-                <img src="ui-ux-designs/New vacancy page (1).png" alt="UX Design 2">
+    <main class="main-content">
+        <section id="certificates" class="section">
+            <div class="section-header">
+                <div class="section-number">01</div>
+                <div class="section-title-wrapper">
+                    <h2 class="section-title">Certificate Designs</h2>
+                    <p class="section-subtitle">Recognition reimagined through elegant visual design</p>
+                </div>
+            </div>
+            <div class="gallery grid-layout">
+                <div class="gallery-item" data-category="certificate">
+                    <a href="certificate-designs/4th place.png" target="_blank" class="image-link">
+                        <div class="image-wrapper">
+                            <img src="certificate-designs/4th place.png" alt="4th Place Certificate Design" loading="lazy">
+                            <div class="image-overlay">
+                                <span class="view-text">View Full Size</span>
+                            </div>
+                        </div>
+                        <div class="item-info">
+                            <h3>4th Place Achievement</h3>
+                            <span class="item-tag">Recognition Design</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="gallery-item" data-category="certificate">
+                    <a href="certificate-designs/Participation.png" target="_blank" class="image-link">
+                        <div class="image-wrapper">
+                            <img src="certificate-designs/Participation.png" alt="Participation Certificate Design" loading="lazy">
+                            <div class="image-overlay">
+                                <span class="view-text">View Full Size</span>
+                            </div>
+                        </div>
+                        <div class="item-info">
+                            <h3>Participation Certificate</h3>
+                            <span class="item-tag">Event Recognition</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="gallery-item" data-category="certificate">
+                    <a href="certificate-designs/F O R V O L U N T E E R I N G (3).png" target="_blank" class="image-link">
+                        <div class="image-wrapper">
+                            <img src="certificate-designs/F O R V O L U N T E E R I N G (3).png" alt="Volunteering Certificate Design" loading="lazy">
+                            <div class="image-overlay">
+                                <span class="view-text">View Full Size</span>
+                            </div>
+                        </div>
+                        <div class="item-info">
+                            <h3>Volunteer Recognition III</h3>
+                            <span class="item-tag">Community Service</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="gallery-item" data-category="certificate">
+                    <a href="certificate-designs/F O R V O L U N T E E R I N G (4).png" target="_blank" class="image-link">
+                        <div class="image-wrapper">
+                            <img src="certificate-designs/F O R V O L U N T E E R I N G (4).png" alt="Volunteering Certificate Design" loading="lazy">
+                            <div class="image-overlay">
+                                <span class="view-text">View Full Size</span>
+                            </div>
+                        </div>
+                        <div class="item-info">
+                            <h3>Volunteer Recognition IV</h3>
+                            <span class="item-tag">Community Service</span>
+                        </div>
+                    </a>
+                </div>
             </div>
         </section>
 
-
-</section>
-
-
-        <section id="uiux">
-            <h2>💻 UI/UX Designs</h2>
-            <div class="gallery">
-                <img src="ui-ux-designs/Group 62.png" alt="UI Design 1">
-                <img src="ui-ux-designs/New vacancy page (1).png" alt="UX Design 2">
+        <section id="uiux" class="section">
+            <div class="section-header">
+                <div class="section-number">02</div>
+                <div class="section-title-wrapper">
+                    <h2 class="section-title">UI/UX Designs</h2>
+                    <p class="section-subtitle">Digital interfaces that balance form and function</p>
+                </div>
+            </div>
+            <div class="gallery grid-layout">
+                <div class="gallery-item large" data-category="uiux">
+                    <div class="image-wrapper">
+                        <img src="ui-ux-designs/Group 62.png" alt="UI Design Project" loading="lazy">
+                        <div class="image-overlay">
+                            <span class="view-text">Explore Design</span>
+                        </div>
+                    </div>
+                    <div class="item-info">
+                        <h3>Interface Design System</h3>
+                        <span class="item-tag">UI Components</span>
+                    </div>
+                </div>
+                <div class="gallery-item large" data-category="uiux">
+                    <div class="image-wrapper">
+                        <img src="ui-ux-designs/New vacancy page (1).png" alt="Vacancy Page UX Design" loading="lazy">
+                        <div class="image-overlay">
+                            <span class="view-text">Explore Design</span>
+                        </div>
+                    </div>
+                    <div class="item-info">
+                        <h3>Job Vacancy Platform</h3>
+                        <span class="item-tag">UX/UI Design</span>
+                    </div>
+                </div>
             </div>
         </section>
 
-
-        <section id="cv">
-            <h2>📄 CV Designs</h2>
-            <div class="gallery">
-                <a href="cv-designs/karate CV NEW.docx" target="_blank">Download CV (DOCX)</a>
-                <a href="cv-designs/Professional CV Resume.pdf" target="_blank">View CV (PDF)</a>
+        <section id="cv" class="section section-alternate">
+            <div class="section-header">
+                <div class="section-number">03</div>
+                <div class="section-title-wrapper">
+                    <h2 class="section-title">Curriculum Vitae</h2>
+                    <p class="section-subtitle">Professional experience and qualifications</p>
+                </div>
+            </div>
+            <div class="cv-container">
+                <div class="cv-card">
+                    <div class="cv-icon">📄</div>
+                    <h3>Professional CV</h3>
+                    <p>Comprehensive resume showcasing skills, experience, and achievements</p>
+                    <div class="cv-links">
+                        <a href="cv-designs/karate CV NEW.docx" class="cv-btn" download>
+                            <span>Download DOCX</span>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M10 13L5 8H15L10 13Z" fill="currentColor"/>
+                                <path d="M4 16H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </a>
+                        <a href="cv-designs/Professional CV Resume.pdf" class="cv-btn" target="_blank">
+                            <span>View PDF</span>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M10 3V13M10 13L14 9M10 13L6 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section id="posts">
-            <h2>📢 Post Designs</h2>
-            <div class="gallery">
-                <img src="post-designs/Navy Blue Modern Background Poster.png" alt="Post 1">
+        <section id="posts" class="section">
+            <div class="section-header">
+                <div class="section-number">04</div>
+                <div class="section-title-wrapper">
+                    <h2 class="section-title">Post Designs</h2>
+                    <p class="section-subtitle">Visual communication for social media and marketing</p>
+                </div>
+            </div>
+            <div class="gallery masonry-layout">
+                <div class="gallery-item" data-category="post">
+                    <div class="image-wrapper">
+                        <img src="post-designs/Navy Blue Modern Background Poster.png" alt="Navy Blue Modern Poster" loading="lazy">
+                        <div class="image-overlay">
+                            <span class="view-text">View Design</span>
+                        </div>
+                    </div>
+                    <div class="item-info">
+                        <h3>Modern Background Poster</h3>
+                        <span class="item-tag">Social Media Design</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="presentations" class="section section-alternate">
+            <div class="section-header">
+                <div class="section-number">05</div>
+                <div class="section-title-wrapper">
+                    <h2 class="section-title">Presentations</h2>
+                    <p class="section-subtitle">Compelling slide decks that inform and engage</p>
+                </div>
+            </div>
+            <div class="presentations-grid">
+                <a href="presentations/Advantages of Electric Vehicles.pptx" class="presentation-card" download>
+                    <div class="presentation-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <rect x="8" y="10" width="32" height="28" rx="2" stroke="currentColor" stroke-width="2"/>
+                            <path d="M8 18H40" stroke="currentColor" stroke-width="2"/>
+                            <circle cx="24" cy="26" r="4" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <h3>Electric Vehicles</h3>
+                    <p>Comprehensive overview of EV advantages and sustainability</p>
+                    <span class="presentation-format">PPTX</span>
+                </a>
+                <a href="presentations/my presentation karate.ppsx" class="presentation-card" download>
+                    <div class="presentation-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <rect x="8" y="10" width="32" height="28" rx="2" stroke="currentColor" stroke-width="2"/>
+                            <path d="M8 18H40" stroke="currentColor" stroke-width="2"/>
+                            <circle cx="24" cy="26" r="4" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <h3>Karate Presentation</h3>
+                    <p>Martial arts philosophy, techniques, and cultural significance</p>
+                    <span class="presentation-format">PPSX</span>
+                </a>
+                <a href="presentations/The Future of Vehicles New.pptx" class="presentation-card" download>
+                    <div class="presentation-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <rect x="8" y="10" width="32" height="28" rx="2" stroke="currentColor" stroke-width="2"/>
+                            <path d="M8 18H40" stroke="currentColor" stroke-width="2"/>
+                            <circle cx="24" cy="26" r="4" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <h3>Future of Vehicles</h3>
+                    <p>Exploring emerging automotive technologies and trends</p>
+                    <span class="presentation-format">PPTX</span>
+                </a>
             </div>
         </section>
     </main>
 
-    <footer>
-        <p> 2025 My Portfolio | Designed by Me</p>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="logo">
+                    <span class="logo-icon">✦</span>
+                    <span class="logo-text">Portfolio</span>
+                </div>
+                <p>Designing the future, one pixel at a time</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="#certificates">Certificates</a></li>
+                        <li><a href="#uiux">UI/UX</a></li>
+                        <li><a href="#cv">CV</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Work</h4>
+                    <ul>
+                        <li><a href="#posts">Posts</a></li>
+                        <li><a href="#presentations">Presentations</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Creative Portfolio. All rights reserved.</p>
+        </div>
     </footer>
+
+    <script>
+        // Custom cursor follower
+        const cursorFollower = document.querySelector('.cursor-follower');
+
+        document.addEventListener('mousemove', (e) => {
+            cursorFollower.style.left = e.clientX + 'px';
+            cursorFollower.style.top = e.clientY + 'px';
+        });
+
+        // Add hover effect to interactive elements
+        const interactiveElements = document.querySelectorAll('a, button, .gallery-item');
+
+        interactiveElements.forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                cursorFollower.style.transform = 'scale(1.5)';
+                cursorFollower.style.opacity = '0.8';
+            });
+            
+            element.addEventListener('mouseleave', () => {
+                cursorFollower.style.transform = 'scale(1)';
+                cursorFollower.style.opacity = '0.5';
+            });
+        });
+
+        // Smooth scroll with offset for fixed navbar
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 100;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections and gallery items
+        const observeElements = document.querySelectorAll('.section-header, .gallery-item, .cv-card, .presentation-card');
+        observeElements.forEach(el => {
+            observer.observe(el);
+        });
+
+        // Navbar background on scroll
+        const navbar = document.querySelector('.navbar');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                navbar.style.background = 'rgba(10, 10, 15, 0.95)';
+                navbar.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.3)';
+            } else {
+                navbar.style.background = 'rgba(10, 10, 15, 0.8)';
+                navbar.style.boxShadow = 'none';
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // Parallax effect for hero orbs
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const orbs = document.querySelectorAll('.gradient-orb');
+            
+            orbs.forEach((orb, index) => {
+                const speed = (index + 1) * 0.3;
+                orb.style.transform = `translate(${scrolled * speed * 0.1}px, ${scrolled * speed * 0.05}px)`;
+            });
+        });
+
+        // Add active state to nav links based on scroll position
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-links a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Image lazy loading with fade-in effect
+        const images = document.querySelectorAll('img[loading="lazy"]');
+
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.style.opacity = '0';
+                    img.addEventListener('load', () => {
+                        img.style.transition = 'opacity 0.5s ease';
+                        img.style.opacity = '1';
+                    });
+                    observer.unobserve(img);
+                }
+            });
+        });
+
+        images.forEach(img => imageObserver.observe(img));
+
+        // Add stagger animation to gallery items on scroll
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        const galleryObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, index * 100);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        galleryItems.forEach(item => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(30px)';
+            item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            galleryObserver.observe(item);
+        });
+
+        // Prevent default behavior for presentation links and add download feedback
+        const presentationCards = document.querySelectorAll('.presentation-card');
+
+        presentationCards.forEach(card => {
+            card.addEventListener('click', (e) => {
+                // Create a subtle visual feedback
+                card.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    card.style.transform = '';
+                }, 200);
+            });
+        });
+
+        // Add click ripple effect to buttons
+        const buttons = document.querySelectorAll('.btn-primary, .btn-secondary, .cv-btn');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.classList.add('ripple');
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Scroll reveal animation for section numbers
+        const sectionNumbers = document.querySelectorAll('.section-number');
+
+        const numberObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInScale 0.8s ease-out forwards';
+                }
+            });
+        }, { threshold: 0.5 });
+
+        sectionNumbers.forEach(num => numberObserver.observe(num));
+
+        // Performance optimization: Throttle scroll events
+        function throttle(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        // Apply throttling to scroll handlers
+        window.addEventListener('scroll', throttle(() => {
+            // Scroll-dependent animations go here
+        }, 50));
+
+        console.log('Portfolio initialized successfully! 🎨');
+    </script>
 </body>
 </html>
